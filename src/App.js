@@ -52,9 +52,9 @@ class BooksApp extends React.Component {
       }
     ],
     bookShelfs: [
-      {title: 'Currently Reading', id:'currentlyReadin'},
-      {title: 'Read', id:'read'},
-      {title: 'Want to read', id: 'wantToRead'}
+      {title: 'Currently Reading', id:'Currently Reading'},
+      {title: 'Read', id:'Read'},
+      {title: 'Want to read', id: 'Want to read'}
     ]
   }
     render(){

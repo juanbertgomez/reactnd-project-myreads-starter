@@ -20,12 +20,14 @@ import React, {Component} from 'react'
                         <option value="wantToRead">Want to Read</option>
                         <option value="read">Read</option>
                         <option value="none">None</option>
-                        <option value="none">{book.state}</option>
+                        <option value="none">{book.shelf}</option>
                       </select>
                     </div>
                   </div>
                   <div className="book-title">{book.name}</div>
                   <div className="book-authors">{book.author}</div>
+                  <div className="book-authors">{book.shelf}</div>
+                  <div className="book-authors">{i.id}</div>
                 </div>
               </li>
             ))}
