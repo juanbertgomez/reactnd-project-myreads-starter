@@ -3,38 +3,36 @@ import React, {Component} from 'react'
  function BookShelf(props)  {
    return (
      <div>
-     {props.bookShelfs.map((i)=>(
+     {props.bookShelfs.filter(function(shelf) {return shelf.shelfId!=='none'}).map((filteredShelf)=>(
        <div className="bookshelf">
-         <h2 className="bookshelf-title">{i.title}</h2>
+         <h2 className="bookshelf-title">{filteredShelf.shelfTitle}</h2>
          <div className="bookshelf-books">
            <ol className="books-grid">
-            {props.books.map((book) => (
+            {props.books.filter(function(book) {return book.shelf===filteredShelf.shelfId}).map((filteredBook) => (
               <li>
                 <div className="book">
                   <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.image})` }}></div>
+                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${filteredBook.image})` }}></div>
                     <div className="book-shelf-changer">
                       <select>
                         <option value="none" disabled>Move to...</option>
-                        <option value="currentlyReading">Currently Reading</option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
-                        <option value="none">None</option>
-                        <option value="none">{book.shelf}</option>
+                          {props.bookShelfs.map((shelf) => (
+                            <option value={shelf.shelfId}>{shelf.shelfTitle}</option>
+                          ))}
                       </select>
                     </div>
                   </div>
-                  <div className="book-title">{book.name}</div>
-                  <div className="book-authors">{book.author}</div>
-                  <div className="book-authors">{book.shelf}</div>
-                  <div className="book-authors">{i.id}</div>
+                  <div className="book-title">{filteredBook.name}</div>
+                  <div className="book-authors">{filteredBook.author}</div>
+                  <div className="book-authors">{filteredBook.author}</div>
+                  <div className="book-authors">{filteredBook.shelf}</div>
+                  <div className="book-authors">{filteredShelf.shelfId}</div>
                 </div>
               </li>
             ))}
            </ol>
          </div>
        </div>
-
      ))}
      </div>
    )
