@@ -1,20 +1,12 @@
 import React, {Component} from 'react'
-
-function Selector(shelf1, shelf2) {
-  if (shelf1 === 'none') {
-    return 'disables'
-  }
-  else if (shelf1===shelf2) {
-      return 'selected'
-  }
-  else {
-    return ''
-  }
-}
+import {Link} from 'react-router-dom'
 
 function BookShelf(props)  {
  return (
    <div>
+     <div className="list-books-title">
+       <h1>MyReads</h1>
+     </div>
    {props.bookShelfs.filter(function(shelf) {return shelf.shelfId!=='none'}).map((filteredShelf)=>(
      <div className="bookshelf">
        <h2 className="bookshelf-title">{filteredShelf.shelfTitle}</h2>
@@ -36,9 +28,6 @@ function BookShelf(props)  {
                 </div>
                 <div className="book-title">{filteredBook.name}</div>
                 <div className="book-authors">{filteredBook.author}</div>
-                <div className="book-authors">{filteredBook.author}</div>
-                <div className="book-authors">{filteredBook.shelf}</div>
-                <div className="book-authors">{filteredShelf.shelfId}</div>
               </div>
             </li>
           ))}
@@ -46,6 +35,11 @@ function BookShelf(props)  {
        </div>
      </div>
    ))}
+     <div className='open-search'>
+       <Link to='/search'
+         className='open-search'
+       >Add a book</Link>
+     </div>
    </div>
  )
 }
