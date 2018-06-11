@@ -12,34 +12,25 @@ class BooksSearch extends Component {
 
   state = {
     booksSearch: [],
-    query: ''
+    query: '',
+    searchState: false
   }
 
-  componentWillUpdate(query) {
-    BooksAPI.search(query)
-      .then((booksSearch) => {
-        this.setState(()=>({
-          booksSearch
-        }))
+  getBooks = (event) => {
+    const query = event.target.value.trim()
+    this.setState({ query: query })
+
+    if (query) {
+      BooksAPI.search(query, 20).then((books)=> {
+        books.lenght > 0 ? this.setState({booksSearch: books, searchState: false }) : this.setState({booksSearch: books, searchState: true })
       })
-  }
-
-  updateQuery = (query) => {
-    this.setState(() => ({
-      query: query.trim()
-    }))
-  }
-
-  clearQuery = () => {
-    this.updateQuery('')
+    } else this.setState({ booksSearch: [], searchState: false})
   }
 
   render () {
-    const { booksSearch, query } = this.state
-    const { booksShelfs } = this.props
-    const showingBooks = query === ''
-    ? []
-    : booksSearch
+    const { booksShelfs, changeShelf } = this.props
+    const { booksSearch, query, searchState } = this.state
+
 
     return (
       <div className="search-books">
@@ -49,20 +40,20 @@ class BooksSearch extends Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              value={this.state.query}
-              onChange={(event) => this.updateQuery(event.target.value)}
+              value={ query }
+              onChange={ this.getBooks }
             />
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-          {showingBooks.map((book)=>(
+          {booksSearch.map((book)=>(
           <li>
             <div className="book">
               <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                 <div className="book-shelf-changer">
-                  <select>
+                  <select onChange={ (event)=> changeShelf(book, event.target.value)}>
                     <option value="none" disabled>Move to...</option>
                       {booksShelfs.map((shelf) => (
                         <option value={shelf.shelfId} selected={shelf.shelfId == book.shelfId}>{shelf.shelfTitle}</option>
