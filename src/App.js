@@ -14,7 +14,6 @@ class BooksApp extends Component {
       {shelfTitle: 'Currently Reading', shelfId:'currentlyReading'},
       {shelfTitle: 'Read', shelfId:'read'},
       {shelfTitle: 'Want to read', shelfId: 'wantToRead'},
-      {shelfTitle: 'None', shelfId: 'none'}
     ]
   }
 
@@ -59,6 +58,7 @@ class BooksApp extends Component {
       <BooksSearch
         books={ books }
         booksShelfs={ booksShelfs }
+        changeShelf = { this.changeShelf }
         />
       )}
     />

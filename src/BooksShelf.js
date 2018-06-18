@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import Book from './Book'
 
 class BooksShelf extends Component {
   static propTypes = {
@@ -22,23 +23,12 @@ class BooksShelf extends Component {
          <div className="bookshelf-books">
            <ol className="books-grid">
             {books.filter(function(book) {return book.shelf===filteredShelf.shelfId}).map((filteredBook) => (
-              <li>
-                <div className="book">
-                  <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${filteredBook.imageLinks.thumbnail})` }}></div>
-                    <div className="book-shelf-changer">
-                      <select onChange={ (event)=> changeShelf(filteredBook, event.target.value)}>
-                        <option value="none" disabled>Move to...</option>
-                          {booksShelfs.map((shelf) => (
-                            <option value={shelf.shelfId} selected={filteredBook.shelfId === filteredShelf.shelfId}>{shelf.shelfTitle}</option>
-                          ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="book-title">{filteredBook.title}</div>
-                  <div className="book-authors">{filteredBook.authors}</div>
-                </div>
-              </li>
+              <Book
+                book = {filteredBook}
+                books={books}
+                booksShelfs = { booksShelfs }
+                changeShelf={changeShelf}
+              />
             ))}
            </ol>
          </div>

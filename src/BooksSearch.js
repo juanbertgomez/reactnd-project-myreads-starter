@@ -2,11 +2,11 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
+import Book from './Book'
 
 
 class BooksSearch extends Component {
   static propTypes = {
-    booksSearch: PropTypes.array.isRequired,
     booksShelfs: PropTypes.array.isRequired,
   }
 
@@ -28,7 +28,7 @@ class BooksSearch extends Component {
   }
 
   render () {
-    const { booksShelfs, changeShelf } = this.props
+    const { books, booksShelfs, changeShelf } = this.props
     const { booksSearch, query, searchState } = this.state
 
 
@@ -46,28 +46,24 @@ class BooksSearch extends Component {
           </div>
         </div>
         <div className="search-books-results">
+
+             {searchState && booksSearch.length ? (
+         
           <ol className="books-grid">
           {booksSearch.map((book)=>(
-          <li>
-            <div className="book">
-              <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                <div className="book-shelf-changer">
-                  <select onChange={ (event)=> changeShelf(book, event.target.value)}>
-                    <option value="none" disabled>Move to...</option>
-                      {booksShelfs.map((shelf) => (
-                        <option value={shelf.shelfId} selected={shelf.shelfId == book.shelfId}>{shelf.shelfTitle}</option>
-                      ))}
-                  </select>
-                </div>
-              </div>
-              <div className="book-title">{book.title}</div>
-              <div className="book-authors">{book.authors}</div>
-            </div>
-          </li>
+             <Book
+             book = {book}
+             books={books}
+             booksShelfs = { booksShelfs }
+             changeShelf={changeShelf}
+           />
           )
           )}
           </ol>
+             ): (
+              <div>No Search result</div>
+              
+            )}
         </div>
       </div>
     )
