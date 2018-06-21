@@ -28,7 +28,7 @@ class ChangeShelf extends Component {
       <select onChange={ (event)=> changeShelf(book, event.target.value)}
       defaultValue={currentShelf}>
         
-        <option value="none" disabled>Move to...</option>
+        <option disabled>Move to...</option>
           {booksShelfs.map((shelf) => (
             <option value={shelf.shelfId}>{shelf.shelfTitle}</option>
           ))}

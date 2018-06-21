@@ -14,6 +14,7 @@ class BooksApp extends Component {
       {shelfTitle: 'Currently Reading', shelfId:'currentlyReading'},
       {shelfTitle: 'Read', shelfId:'read'},
       {shelfTitle: 'Want to read', shelfId: 'wantToRead'},
+      {shelfTitle: 'None', shelfId: 'none'}
     ]
   }
 
